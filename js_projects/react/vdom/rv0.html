@@ -1,0 +1,35 @@
+<!-- 주석, html은 웹어플리케이션에서 프런드앤드 파트에 콘텐츠와 구조 담당, 
+     사용자가 직접 보는 화면, 백앤드의 서버가 응답하는 내용이 대부분 html이다 -->
+<!DOCTYPE html>
+<!-- 이 문서는 html5 버전을 따른다. 이 문서의 시작(루트엘리먼트)은 html이다 -->
+<html>
+    <head>
+        <!-- 이 문서의 메타(데이터를 기술하는 데이터) 정보 파트 -->
+        <!-- 제목, 화면 비율, 파비콘, css, js, 기타 필요 정보 -->
+        <meta charset="UTF-8" /> <!-- 단독 태크(tag) -->
+        <title>리액트 VDOM 템플릿</title>
+        <!-- 문서 외부에 있는 js를 내 문서에서 사용하기 싶다면 참조하면 된다 -->
+        <!-- 리액트 라이브러리(프런트쪽 html 에서만 사용가능한)-->
+        <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+        <!-- 리액트 코드 => ES5 코드로 변환 모듈 -->
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    </head>
+    <body>
+        <!-- 이 문서를 화면에 보기에 하는 화면담당 파트 -->
+        <!--
+            div는 영역을 의미하는 html 태그이다
+            1개의 태그는 DOM의 관점에서는 엘리먼트라고 지칭한다
+            엘리먼트 = start tag(시작태그) + end tag(종료태그) + 콘텐츠(내부모든요소,자식)
+            시작태그는 속성을 가질수 있다 => ex) id, href, src, width, ...
+            태그별로 고유한 속성이 존재한다
+        -->
+        <!-- 여기서는 리액트가 랜더링할 대상으로 아래 div를 만들었다 -->
+        <div id="warp"></div>
+        <!-- 일반적으로 html내에 js를 삽입할경우 body가 닫히기 직전에 배치하는 확률이 높다-->
+        <!-- 일반적인 코드에는 없는 형식 type="text/babel" -->
+        <script type="text/babel">
+
+        </script>
+    </body>
+</html>

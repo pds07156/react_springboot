@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 사용자 정의 컴포넌트 만들기 2 - class </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <script type="text/babel">  
+        // 컴포넌트를 class(스타일 5번) 문법으로 구성
+        class MyImage extends React.Component {
+            render () {
+                return (
+                    <div>
+                        <img src={ this.props.src } width='100'/>
+                        <p>{ this.props.label }</p>
+                    </div>
+                )
+            }
+        }
+        let html = <div>
+                <MyImage label="스타벅스" src="https://mblogthumb-phinf.pstatic.net/20131118_182/jewellead_1384742556711pth97_JPEG/Starbucks_New_Logo.jpg?type=w2"/>
+                <MyImage label="컴포즈" src="https://k.kakaocdn.net/dn/y0ufh/btruHx20AJl/BAZ9mSjWGGUwK1RAenvvE0/img.png"/>
+            </div>      
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>

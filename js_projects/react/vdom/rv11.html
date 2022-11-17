@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 컴포넌트 구성요소 - state - 실습  </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <script type="text/babel">
+        // 10분 (실습) - 시:분:초 <= 웹시계를 구현하시오
+        // 화면갱신은 상태변화로 처리하시오
+        // 컴포넌트는 클레스형으로 구성 => MyClock 콤포넌트 구현
+        class MyClock extends React.Component {
+            constructor ( props ) {
+                super( props )
+                this.state = {
+                    curTime:new Date()
+                }
+                // 1초마다 현재 시간값을 갱신한다
+                // 상태값의 변경은 가급적  render() 외부에서 진행
+                setInterval(() => {
+                    this.setState( { curTime:new Date() } )
+                }, 1000*1);
+            }
+            render () {
+                let d = this.state.curTime
+                let h = d.getHours()
+                let m = d.getMinutes()
+                let s = d.getSeconds()
+                return (
+                    <div>
+                        <p>{ h }:{ m }:{ s }</p>
+                    </div>
+                )
+            }
+        }
+        let html = <div><MyClock /></div>
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>

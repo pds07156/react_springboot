@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 사용자 정의 컴포넌트 만들기 1 </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>    
+    <script type="text/babel">
+        // 리액트는 수십(백)개의 컴포넌트로 구성(=>뷰)된다
+        // 컴포넌트 정의 => 함수(현재 트렌드), 클레스
+        function Good( props ) {
+            // Good 컴포넌트의 속성 : props 
+            // Good 태그의 속성 msg, time 값은 props을 통해서 접근 가능하다
+            // props.msg, props.time
+            // JSX를 리턴
+            return (
+                <h1>{ props.msg } / { props.time }</h1>
+            )
+        }
+        let html = <div>
+                <Good msg="Good Morning" time='8'/>
+            </div>
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>

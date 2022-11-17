@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 컴포넌트 구성요소 - state  </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <script type="text/babel">
+        // 결론 : 화면갱신 매커니즘 => 상태값을 수정하여 화면을 갱신한다
+
+        // state : 컴포넌트의 상태값 담당, 중요한 구성원
+        // 여러 단계
+        // 1. 상태값 생성 및 초기화 -> 클레스 컴포넌트 기반에서는 생성자에서 구성
+        // 2. 상태값 사용 -> 일반적으로는 render() 내부에서 사용
+        // 3. 상태값 수정 -> render() 자동 호출 -> 부분 화면 갱신 가능
+        class MyList extends React.Component {
+            constructor ( props ) {
+                super( props )
+                // 1. 상태값 생성 및 초기화
+                // 키:값,...
+                this.state = {
+                    count : 1,
+                }
+            }
+            render () {
+                // return 이전 코드에 불필요하게 반복되는 지점이 보인다 -> 최적화필요
+                // 랜더링 전에 작업 가능
+                console.log( this.props.items.split(',') )
+                const items = this.props.items.split(',') // 배열로 리턴
+                // 문자열에서 특정 문자를 기준으로 분해한다 => split
+                const list  = items.map( (value, index)=>{
+                    // 동적으로  JSX 구성
+                    return (
+                        <li key={index}>{ value }</li>
+                    )
+                } )
+                // 3. 상태 변수 수정
+                setTimeout(() => {
+                    this.setState( { count:this.state.count+1 } )
+                    // 상태값 변경 => render() 호출 => 화면갱신
+                }, 1000*5);  
+
+                // JSX
+                return (
+                    <div>
+                        { /* 2. 상태값 사용 */ }
+                        <h2>{ this.props.title } / { this.state.count }</h2>
+                        <ul>
+                            {list}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        let html = (
+            <div>
+                <MyList title="G20" items="한국,미국,중국,일본"/>
+            </div>
+        )
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>

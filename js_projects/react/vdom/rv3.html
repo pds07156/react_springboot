@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - JSX에 값(변수) 세팅</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>    
+    <script type="text/babel">
+        function makeJSX()
+        {
+            const rate     = '최고 4.90%'
+            const value    = 10000000
+            const bankName = '부산은행'
+            const product  = '더(The) 특판 정기예금'
+            // JSX에서 동적으로 만들어지는 요소에 값을 부여 => { 변수 }
+            // 속성에 값을 넣을때는 '' 혹은 ""를 넣지 않는다
+            // html에서 속성의 값은 '' 혹은 ""로 감싸서 표현한다
+            return <p bank={ rate } value={ value } >
+                    { bankName }에서 판매중인 { product }이 1 금융권에서 최금 이자율을 기록했다
+                </p>
+        }
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( makeJSX(), root )
+    </script>
+</body>
+</html>

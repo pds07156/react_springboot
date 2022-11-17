@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿</title>
+    <!-- external 방식 -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <!-- js가 html에 포함되는 형태 external, internal, inline -->
+    <script type="text/babel">
+        // internal 방식
+
+        // 특징
+        // 1. html 안에서 react 코드가 구동되는 유일한 형태(보안취약, 연습용)
+        // 2. 리액트 요소를 대부분 실습할수 있다
+        // 3. 리액트 코드를 통해서 동적으로 html이 만들어지는데 이를 JSX라고 부른다
+        // 4. 리액트 코드 -> babel -> 표준호환코드(ES5)로 변환된다
+        // 5. JSX를 기존 요소에 삽입 혹은 교체등 하기 위해서는 해당 요소를 특정해야 한다
+        
+        // 작성
+        // 1. JSX 작성 : 반드시, 루트 엘리먼트를 가진다, 코드가 길면 ()로 감쌀수 있다. 
+        //               반드시 태크는 열었으면 닫는다. overrap(태그끼리 엇갈리게 닫히는 코드) X
+        var html = <div>
+            <p>문단하나 담당</p>
+            <p>리액트</p>
+        </div>
+
+        // 2. JSX를 랜더링할 위치(타겟 위치)을 획득 -> 특정해라 -> css selector/XPath 기법
+        var root = document.querySelector('#warp')
+
+        // 3. 랜더링
+        ReactDOM.render( html, root )
+
+    </script>
+</body>
+</html>

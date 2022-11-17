@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 화면 갱신 파트 1</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>    
+    <script type="text/babel">
+        var root = document.querySelector('#warp')        
+
+        // react => 화면을 갱신하는 성능이 월등하다 => 빠르다(짜기 나름)
+        // 화면에 시:분:초 표기 => 시간이 지나면 자동갱신 1초단위 -> 반복타이머 해결(JS)
+        // 타이머 : 단발성타이머(setTimeout), 연속성타이머(setInterval)
+        setInterval(() => {
+            let d = new Date()
+            let h = d.getHours()
+            let m = d.getMinutes()
+            let s = d.getSeconds()
+            let html = <div>
+                    <p>{ h }:{ m }:{ s }</p>
+                </div>        
+            ReactDOM.render( html, root )    
+        }, 1000*1);
+        
+
+    </script>
+</body>
+</html>

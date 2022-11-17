@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 사용자 정의 컴포넌트 만들기 2 - 실습 </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <script type="text/babel">    
+        // MyList class 컴포넌틑 기본 구조 생성 - 실습
+        // html에서 리스트 담당 -> ul>li, ul>ol
+        class MyList extends React.Component {
+            render () {
+                // 랜더링 전에 작업 가능
+                console.log( this.props.items.split(',') )
+                const items = this.props.items.split(',') // 배열로 리턴
+                // 문자열에서 특정 문자를 기준으로 분해한다 => split
+                const list  = items.map( (value, index)=>{
+                    // 동적으로  JSX 구성
+                    return (
+                        <li key={index}>{ value }</li>
+                    )
+                } )
+
+                // JSX
+                return (
+                    <div>
+                        <ul>
+                            {list}
+                        </ul>
+                    </div>
+                )
+            }
+        }
+        // MyList items 내용을 분해해서 목록으로 나열한다
+        let html = (
+            <div>
+                <MyList title="G20" items="한국,미국,중국,일본"/>
+            </div>
+        )          
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>
