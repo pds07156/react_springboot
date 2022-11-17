@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 컴포넌트 구성요소(props, state, event) - 이벤트 (클릭2번 형태 추천)  </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <script type="text/babel">
+        // 이벤트, ( 클릭, 값변경, 드레그, 키프레스, ....)
+        // 이벤트 등록, 이벤트 발생, 이벤트 처리
+        class MyEvent extends React.Component
+        {
+            constructor ( props ) {
+                super( props )
+                console.log( this.props.name )
+                // 맴버 함수의 this 처리를 위해서 별도 바인딩 처리
+                this.alertHandler = this.alertHandler.bind( this )
+            }
+            alertHandler () {
+                // this가 인식이 않됨 undefined => 바인딩 처리를 별도로 진행
+                alert('클릭1 이벤트 처리 : ' + this.props.name)
+            }
+            // 위의 방식은 함수로 최초 정의를 진행한것
+            // 아래 방식은 맴버 변수에 함수값을 설정, 바벨에서 표준화 처리시 this가 해결
+            alertHandler2 = () => {
+                // 내부에서 this를 사용한다면 변수=함수 방식을 선호
+                alert('클릭2 이벤트 처리 : ' + this.props.name)
+            }
+            render () {
+                // 간편하지만, render가 계속 호출되면, 반복적으로 함수가 정의되는 문제가 발생
+                // 비효율적인 측면이 존재
+                const alertHandler3 = e => {
+                    alert('클릭3 이벤트 처리 : ' + this.props.name)
+                }
+                return (
+                    <div>
+                        <div onClick={ this.alertHandler }>클릭 1</div>
+                        <div onClick={ this.alertHandler2 }>클릭 2</div>
+                        <div onClick={ alertHandler3 }>클릭 3</div>
+                        <div onClick={ e=>alert('클릭4 이벤트 처리 : ' + this.props.name)  }>클릭 4</div>
+                    </div>
+                )
+            }
+        }
+        let html = <div><MyEvent name="hi"/></div>
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>

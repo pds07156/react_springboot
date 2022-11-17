@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>리액트 VDOM 템플릿 - 컴포넌트 구성요소(props, state, event) - 종합 적으로 적용된 컴포넌트 만들기 </title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+<body>
+    <div id="warp"></div>
+    <script type="text/babel"> 
+        // 멀티 선택을 하는 컴포넌트, 체크박스를 동그라미 형태로 구현
+        /**
+         * MyChoice는 멀티 선택을 하는 컴포넌트의 항목 1개를 의미한다
+         */
+        class MyChoice extends React.Component
+        {
+            constructor ( props ) {
+                super( props ) 
+                this.state = {
+                    select:false // 선택했는가? 않했는가?
+                }               
+            }
+            selHandler =  e => {
+                // 클릭하면 selHandler() 호출 -> 상태변수 select 값을 T->F, F->T 변경
+                this.setState( { select: !this.state.select } )
+            }
+            render () {
+                let { select } = this.state
+                // ○, ●  => 3항 연산자로 표현( 조건식의 결론이 값을 설정, 조건 결론이 2개인경우)
+                // let icon = '○'  
+                // if (select) {
+                //     icon = '●' 
+                // }
+                let icon = select ? '●' : '○'
+                return (
+                    <div onClick={ this.selHandler }>
+                        { icon }  { this.props.name }
+                    </div>          
+                )
+            }
+        }
+        let html = <div>
+                이번 겨울 어디로 여행을 갈까요?
+                <MyChoice name='호주'/>
+                <MyChoice name='제주'/>
+                <MyChoice name='괌'/>
+                <MyChoice name='코타키나발루'/>
+            </div>
+        var root = document.querySelector('#warp')        
+        ReactDOM.render( html, root )
+    </script>
+</body>
+</html>
